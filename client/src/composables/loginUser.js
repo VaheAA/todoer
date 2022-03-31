@@ -7,7 +7,7 @@ const loginUser = async (user) => {
     localStorage.setItem('token', data.token);
     return jwtDecode(data.token);
   } catch (err) {
-    alert(err);
+    alert(err.message);
   }
 };
 

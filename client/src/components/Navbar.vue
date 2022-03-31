@@ -2,19 +2,25 @@
   <nav class="nav">
     <ul class="nav__list">
       <li class="nav__item">
-        <router-link class="nav__link" :to="{ name: 'Register' }"
+        <router-link
+          class="nav__link"
+          v-if="!store.isAuth"
+          :to="{ name: 'Register' }"
           >Register</router-link
         >
       </li>
       <li class="nav__item">
-        <router-link class="nav__link" :to="{ name: 'Login' }"
+        <router-link
+          class="nav__link"
+          v-if="!store.isAuth"
+          :to="{ name: 'Login' }"
           >Login</router-link
         >
       </li>
-      <li class="nav__item" v-if="currentUser">
+      <li class="nav__item" v-if="store.isAuth">
         <button class="nav__link" @click="logOut">Sign Out</button>
       </li>
-      <li class="nav__item" v-if="currentUser">
+      <li class="nav__item" v-if="store.isAuth">
         <router-link class="nav__link" :to="{ name: 'CreateList' }"
           >Create list</router-link
         >
@@ -27,15 +33,16 @@
 import { ref } from 'vue';
 import { useLoggedInUserStore } from '../store/userStore.js';
 
-const { setUser, setAuth, user } = useLoggedInUserStore();
+const store = useLoggedInUserStore();
 
-const currentUser = ref(null);
-
-currentUser.value = user;
+store.$subscribe(() => {
+  console.log(store.isAuth);
+});
 
 const logOut = () => {
-  setUser({});
-  setAuth(false);
+  store.setUser(null);
+  store.setAuth(false);
+  localStorage.removeItem('token');
 };
 </script>
 

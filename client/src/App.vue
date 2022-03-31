@@ -1,8 +1,11 @@
 <template>
-  <Header />
-  <div class="container" v-if="!isLoading">
-    <router-view></router-view>
-  </div>
+  <template v-if="!isLoading">
+    <Header />
+    <div class="container">
+      <router-view></router-view>
+    </div>
+  </template>
+  <h1 style="margin-top: 100px" v-else>Loading...</h1>
 </template>
 
 <script setup>
@@ -12,22 +15,32 @@ import { useRouter } from 'vue-router';
 import { useLoggedInUserStore } from './store/userStore.js';
 import { checkUser } from './composables/loginUser.js';
 
-const isLoading = ref(true);
-const { setUser, setAuth } = useLoggedInUserStore();
+const isLoading = ref(false);
+const store = useLoggedInUserStore();
 
 const router = useRouter();
 
-onMounted(async () => {
-  await checkUser()
-    .then((data) => {
-      if (data) {
-        setUser(data);
-        setAuth(true);
-      } else {
-        router.push({ name: 'Login' });
-      }
-    })
-    .finally((isLoading.value = false));
+store.$subscribe(() => {
+  if (!store.isAuth) router.push({ name: 'Login' });
+});
+
+onMounted(() => {
+  isLoading.value = false;
+  if (localStorage.getItem('token')) {
+    checkUser()
+      .then((data) => {
+        if (data) {
+          isLoading.value = true;
+          store.setUser(data);
+          store.setAuth(true);
+        } else {
+          router.push({ name: 'Login' });
+        }
+      })
+      .finally(() => (isLoading.value = false));
+  } else {
+    router.push({ name: 'Login' });
+  }
 });
 </script>
 

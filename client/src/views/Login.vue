@@ -21,6 +21,9 @@
 import { ref } from 'vue';
 import { loginUser } from '../composables/loginUser.js';
 import { useLoggedInUserStore } from '../store/userStore.js';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const { setUser, setAuth } = useLoggedInUserStore();
 
@@ -34,8 +37,11 @@ const saveUser = async () => {
     password: password.value
   };
   user.value = await loginUser(newUser);
-  setUser(user.value);
-  setAuth(true);
+  if (user.value) {
+    setUser(user.value);
+    setAuth(true);
+    router.push({ name: 'Home' });
+  }
 };
 </script>
 

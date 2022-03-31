@@ -4,13 +4,11 @@ import Register from '../views/Register.vue';
 import Login from '../views/Login.vue';
 import ListItem from '../views/ListItem.vue';
 import CreateList from '../views/CreateList.vue';
-import useStore from '../store/userStore.js';
+import { useLoggedInUserStore } from '../store/userStore';
 
-console.log(useStore);
-
-const requireAuth = (to, from, next) => {
-  let currentUser = user;
-  if (!currentUser) {
+const requireAuth = async (to, from, next) => {
+  const store = useLoggedInUserStore();
+  if (!store.isAuth) {
     next({ name: 'Login' });
   } else {
     next();
@@ -22,7 +20,7 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    beforeEnter: requireAuth
+    beforEnter: requireAuth
   },
   {
     path: '/register',
@@ -38,13 +36,13 @@ const routes = [
     path: '/list/create',
     name: 'CreateList',
     component: CreateList,
-    beforeEnter: requireAuth
+    beforEnter: requireAuth
   },
   {
     path: '/list/:id',
     name: 'ListItem',
     component: ListItem,
-    beforeEnter: requireAuth
+    beforEnter: requireAuth
   }
 ];
 
