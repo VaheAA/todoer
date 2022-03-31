@@ -1,10 +1,15 @@
+const ApiError = require('../error/ApiError');
 const { Todo } = require('../models/models');
 
 class TodoItem {
-  async create(req, res) {
-    let { text, done, listId } = req.body;
-    const todo = await Todo.create({ text, done, listId });
-    return res.json(todo);
+  async create(req, res, next) {
+    try {
+      let { text, done, listId } = req.body;
+      const todo = await Todo.create({ text, done, listId });
+      return res.json(todo);
+    } catch (e) {
+      next(ApiError.badRequest(e));
+    }
   }
 
   async getAll(req, res) {
