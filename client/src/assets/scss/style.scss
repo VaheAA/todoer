@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@500;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100vh;
+}
+
+body {
+  font-size: 15px;
+}
+
+a,
+a:active {
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+.container {
+  max-width: 1140px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.main {
+  padding-top: 8rem;
+}
