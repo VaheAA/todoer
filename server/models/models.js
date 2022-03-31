@@ -17,7 +17,7 @@ const Todo = sequelize.define('todo', {
   done: { type: DataTypes.BOOLEAN, allowNull: false }
 });
 
-User.hasOne(TodoList);
+User.hasMany(TodoList);
 TodoList.belongsTo(User);
 
 TodoList.hasMany(Todo);
