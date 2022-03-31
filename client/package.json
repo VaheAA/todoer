@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.26.1",
+    "jwt-decode": "^3.1.2",
     "pinia": "^2.0.12",
     "sass": "^1.49.10",
     "vue": "^3.2.25",

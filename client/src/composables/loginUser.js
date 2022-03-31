@@ -1,22 +1,23 @@
 import { $host, $authHost } from '../api';
+import jwtDecode from 'jwt-decode';
 
 const loginUser = async (user) => {
-  error.value = null;
   try {
-    const response = await $host.post('api/user/login', user);
-    return response;
+    const { data } = await $host.post('api/user/login', user);
+    localStorage.setItem('token', data.token);
+    return jwtDecode(data.token);
   } catch (err) {
-    error.value = err;
+    alert(err);
   }
 };
 
 const checkUser = async (user) => {
-  error.value = null;
   try {
-    const response = await $host.post('api/user/auth', user);
-    return response;
+    const { data } = await $authHost.get('api/user/auth', user);
+    localStorage.setItem('token', data.token);
+    return jwtDecode(data.token);
   } catch (err) {
-    error.value = err;
+    alert(err);
   }
 };
 

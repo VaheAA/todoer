@@ -11,11 +11,33 @@
           >Login</router-link
         >
       </li>
+      <li class="nav__item" v-if="currentUser">
+        <button class="nav__link" @click="logOut">Sign Out</button>
+      </li>
+      <li class="nav__item" v-if="currentUser">
+        <router-link class="nav__link" :to="{ name: 'CreateList' }"
+          >Create list</router-link
+        >
+      </li>
     </ul>
   </nav>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
+import { useLoggedInUserStore } from '../store/userStore.js';
+
+const { setUser, setAuth, user } = useLoggedInUserStore();
+
+const currentUser = ref(null);
+
+currentUser.value = user;
+
+const logOut = () => {
+  setUser({});
+  setAuth(false);
+};
+</script>
 
 <style lang="scss">
 .nav {

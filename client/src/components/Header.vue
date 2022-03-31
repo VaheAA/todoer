@@ -3,7 +3,7 @@
     <div class="container">
       <div class="header__inner">
         <div class="header__brand">
-          <router-link class="header__brand-logo" :to="{ name: Home }"
+          <router-link class="header__brand-logo" :to="{ name: 'Home' }"
             >TODOER</router-link
           >
         </div>
