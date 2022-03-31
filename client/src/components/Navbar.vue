@@ -18,7 +18,9 @@
         >
       </li>
       <li class="nav__item" v-if="store.isAuth">
-        <button class="nav__link" @click="logOut">Sign Out</button>
+        <button class="nav__link nav__link-btn" @click="logOut">
+          Sign Out
+        </button>
       </li>
       <li class="nav__item" v-if="store.isAuth">
         <router-link class="nav__link" :to="{ name: 'CreateList' }"
@@ -58,11 +60,24 @@ const logOut = () => {
     padding: 0 0.25rem;
   }
   &__link {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: $darkCyan;
 
     &.router-link-exact-active {
       font-weight: bold;
+    }
+  }
+
+  &__link-btn {
+    background: transparent;
+    border: 1px solid $primaryDarkCyan;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
     }
   }
 }

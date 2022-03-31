@@ -59,6 +59,7 @@ const handleClick = () => {
   &__title {
     text-align: center;
     font-size: 2rem;
+    color: $veryDarkCyan;
   }
 
   &__group {

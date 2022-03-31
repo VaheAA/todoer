@@ -6,7 +6,7 @@ import ListItem from '../views/ListItem.vue';
 import CreateList from '../views/CreateList.vue';
 import { useLoggedInUserStore } from '../store/userStore';
 
-const requireAuth = async (to, from, next) => {
+const requireAuth = (to, from, next) => {
   const store = useLoggedInUserStore();
   if (!store.isAuth) {
     next({ name: 'Login' });

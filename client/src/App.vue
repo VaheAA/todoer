@@ -1,9 +1,7 @@
 <template>
   <template v-if="!isLoading">
     <Header />
-    <div class="container">
-      <router-view></router-view>
-    </div>
+    <router-view></router-view>
   </template>
   <h1 style="margin-top: 100px" v-else>Loading...</h1>
 </template>
