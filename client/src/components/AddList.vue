@@ -7,7 +7,6 @@
         :value="listName"
         @input="$emit('update:listName', $event.target.value)"
         class="form__input"
-        type="email"
         required
       />
     </div>
