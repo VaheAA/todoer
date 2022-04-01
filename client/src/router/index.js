@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import Register from '../views/Register.vue';
 import Login from '../views/Login.vue';
-import ListItem from '../views/ListItem.vue';
 import CreateList from '../views/CreateList.vue';
+import SingleList from '../views/SingleList.vue';
 import { useLoggedInUserStore } from '../store/userStore';
 
 const requireAuth = (to, from, next) => {
@@ -40,8 +40,8 @@ const routes = [
   },
   {
     path: '/list/:id',
-    name: 'ListItem',
-    component: ListItem,
+    name: 'SingleList',
+    component: SingleList,
     beforEnter: requireAuth
   }
 ];

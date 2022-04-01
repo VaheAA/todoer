@@ -1,16 +1,22 @@
 <template>
-  <div class="list__item">
-    <div class="list__info">
-      <span class="list__id">#{{ id }}</span>
-      <span class="list__title">{{ title }}</span>
+  <router-link
+    :to="{
+      name: 'SingleList',
+      params: { id: id }
+    }"
+  >
+    <div class="list__item">
+      <div class="list__info">
+        <span class="list__title">{{ title }}</span>
+      </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script setup>
 const props = defineProps({
-  id: Number,
-  title: String
+  title: String,
+  id: Number
 });
 </script>
 

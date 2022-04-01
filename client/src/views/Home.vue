@@ -18,7 +18,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import ListItem from './ListItem.vue';
+import ListItem from '../components/ListItem.vue';
 import { getLists } from '../composables/getLists';
 import { useLoggedInUserStore } from '../store/userStore';
 
