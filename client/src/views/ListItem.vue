@@ -1,18 +1,22 @@
 <template>
   <div class="list__item">
-    <h2 class="list__title">{{ title }}</h2>
+    <div class="list__info">
+      <span class="list__id">#{{ id }}</span>
+      <span class="list__title">{{ title }}</span>
+    </div>
   </div>
 </template>
 
 <script setup>
 const props = defineProps({
+  id: Number,
   title: String
 });
 </script>
 
 <style lang="scss">
 .list__item {
-  padding: 0.5rem;
+  padding: 0.75rem;
   border: 1px solid $primaryDarkCyan;
   width: 250px;
   height: 250px;
@@ -28,9 +32,19 @@ const props = defineProps({
   }
 }
 
+.list__info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: $veryDarkCyan;
+}
+
+.list__id {
+  font-size: 1.25rem;
+}
+
 .list__title {
   text-align: center;
   font-size: 1.75rem;
-  color: $veryDarkCyan;
 }
 </style>

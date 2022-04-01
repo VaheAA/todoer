@@ -1,10 +1,15 @@
 <template>
-  <main class="main">
+  <main class="main" v-if="!isLoading">
     <div class="home">
       <div class="container">
         <h1 class="main-title">Your todo lists</h1>
         <ul class="lists">
-          <ListItem v-for="list in lists" :key="list" :title="list.id" />
+          <ListItem
+            v-for="list in lists"
+            :key="list"
+            :id="list.id"
+            :title="list.name"
+          />
         </ul>
       </div>
     </div>
@@ -12,38 +17,24 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import ListItem from './ListItem.vue';
+import { getLists } from '../composables/getLists';
+import { useLoggedInUserStore } from '../store/userStore';
 
-const lists = ref([
-  {
-    id: '1'
-  },
-  {
-    id: '2'
-  },
-  {
-    id: '3'
-  },
-  {
-    id: '4'
-  },
-  {
-    id: '5'
-  },
-  {
-    id: '6'
-  },
-  {
-    id: '7'
-  },
-  {
-    id: '8'
-  },
-  {
-    id: '9'
+const lists = ref(null);
+const isLoading = ref(false);
+
+onMounted(async () => {
+  isLoading.value = true;
+  const store = useLoggedInUserStore();
+  if (store.user) {
+    lists.value = await getLists(store.user.id);
+    isLoading.value = false;
+  } else {
+    return;
   }
-]);
+});
 </script>
 
 <style lang="scss">

@@ -8,7 +8,8 @@ const User = sequelize.define('user', {
 });
 
 const TodoList = sequelize.define('list', {
-  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true }
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  name: { type: DataTypes.STRING, allowNull: false }
 });
 
 const Todo = sequelize.define('todo', {
