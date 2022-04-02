@@ -18,6 +18,7 @@
         @input="$emit('update:inputPassword', $event.target.value)"
         class="form__input"
         type="password"
+        required
       />
     </div>
     <button class="btn submit__btn">{{ btnText }}</button>

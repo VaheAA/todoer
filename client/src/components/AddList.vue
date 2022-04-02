@@ -7,6 +7,7 @@
         :value="listName"
         @input="$emit('update:listName', $event.target.value)"
         class="form__input"
+        type="text"
         required
       />
     </div>
@@ -15,7 +16,7 @@
 </template>
 
 <script setup>
-const propst = defineProps({
+const props = defineProps({
   listName: String,
   title: String,
   btnText: String
