@@ -2,7 +2,7 @@
   <main class="main" v-if="!isLoading">
     <div class="home">
       <div class="container">
-        <h1 class="main-title">Your todo lists</h1>
+        <h1 class="main-title">My Lists</h1>
         <ul class="lists">
           <ListItem
             v-for="list in lists"

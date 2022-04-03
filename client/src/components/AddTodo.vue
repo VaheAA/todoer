@@ -19,7 +19,6 @@
         :value="done"
         @change="$emit('update:done', $event.target.checked)"
         class="form__input form__input-checkbox"
-        required
       />
     </div>
     <button class="btn submit__btn">{{ btnText }}</button>
