@@ -34,6 +34,14 @@ class TodoItem {
     });
     return res.json(todo);
   }
+
+  async deleteItem(req, res) {
+    const { id } = req.params;
+    const todo = await Todo.destroy({
+      where: { id }
+    });
+    return res.json(todo);
+  }
 }
 
 module.exports = new TodoItem();

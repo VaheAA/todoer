@@ -2,7 +2,9 @@
   <main class="main" v-if="!isLoading">
     <div class="home">
       <div class="container">
-        <h1 class="main-title">Welcome to the TODOER, Stranger!</h1>
+        <h1 class="main-title">
+          Welcome to the TODOER<span v-if="!store.isAuth">, Stranger</span>!
+        </h1>
         <div class="home__welcome">
           <ul class="home__links">
             <li class="home__item">

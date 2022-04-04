@@ -10,6 +10,7 @@
             :complete="todo.done"
             :key="todo.id"
             @click="markAsComplete(todo.id)"
+            @deleteTodo="handleDelete(todo.id)"
           />
         </ul>
         <h3 v-else>Add you first todo</h3>
@@ -41,6 +42,9 @@
             </button>
           </div>
         </div>
+        <div class="list__summary">
+          <span class="list__summary-item">Total todos: {{ todos.count }}</span>
+        </div>
       </div>
       <transition>
         <AddTodo
@@ -60,7 +64,7 @@
 import { onMounted, ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { getSingleList } from '../composables/getLists';
-import { createTodo } from '../composables/useTodo';
+import { createTodo, deleteTodo } from '../composables/useTodo';
 import { getTodos } from '../composables/getTodos';
 
 import AddTodo from '../components/AddTodo.vue';
@@ -113,6 +117,11 @@ const countPages = () => {
   for (let i = 0; i < pagesCount.value; i++) {
     pages.value.push(i + 1);
   }
+};
+
+const handleDelete = async (id) => {
+  await deleteTodo(id);
+  todos.value = await getTodos(route.params.id, limit.value, currentPage.value);
 };
 
 onMounted(async () => {
@@ -175,6 +184,17 @@ onMounted(async () => {
   gap: 0.5rem;
   max-width: 300px;
 }
+
+.list__summary {
+  margin-top: 1rem;
+}
+
+.list__summary-item {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: $veryDarkCyan;
+}
+
 .pagination__btn {
   width: 30px;
 }

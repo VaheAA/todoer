@@ -12,3 +12,8 @@ export const createTodo = async (todo) => {
     error.value = err;
   }
 };
+
+export const deleteTodo = async (id) => {
+  const { data } = await $authHost.delete(`api/todo/${id}`);
+  return data;
+};

@@ -16,7 +16,11 @@
         }"
         :icon="['fas', 'circle-check']"
       />
-      <font-awesome-icon class="todo__marker" :icon="['fas', 'circle-xmark']" />
+      <font-awesome-icon
+        class="todo__marker"
+        :icon="['fas', 'circle-xmark']"
+        @click="handleDelete(id)"
+      />
     </div>
   </div>
 </template>
@@ -26,6 +30,12 @@ const props = defineProps({
   text: String,
   complete: Boolean
 });
+
+const emit = defineEmits(['deleteTodo']);
+
+const handleDelete = (id) => {
+  emit('deleteTodo', id);
+};
 </script>
 
 <style lang="scss">
