@@ -32,12 +32,12 @@ onMounted(() => {
           store.setUser(data);
           store.setAuth(true);
         } else {
-          router.push({ name: 'Login' });
+          router.push({ name: 'Home' });
         }
       })
       .finally(() => (isLoading.value = false));
   } else {
-    router.push({ name: 'Login' });
+    router.push({ name: 'Home' });
   }
 });
 </script>

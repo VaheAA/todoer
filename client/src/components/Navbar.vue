@@ -27,6 +27,11 @@
           >Create list</router-link
         >
       </li>
+      <li class="nav__item" v-if="store.isAuth">
+        <router-link class="nav__link" :to="{ name: 'UserHome' }"
+          >My Lists</router-link
+        >
+      </li>
     </ul>
   </nav>
 </template>

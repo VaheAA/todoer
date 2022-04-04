@@ -4,12 +4,13 @@ import Register from '../views/Register.vue';
 import Login from '../views/Login.vue';
 import CreateList from '../views/CreateList.vue';
 import SingleList from '../views/SingleList.vue';
+import UserHome from '../views/UserHome.vue';
 import { useLoggedInUserStore } from '../store/userStore';
 
 const requireAuth = (to, from, next) => {
   const store = useLoggedInUserStore();
   if (!store.isAuth) {
-    next({ name: 'Login' });
+    next({ name: 'Home' });
   } else {
     next();
   }
@@ -19,7 +20,12 @@ const routes = [
   {
     path: '/',
     name: 'Home',
-    component: Home,
+    component: Home
+  },
+  {
+    path: '/user',
+    name: 'UserHome',
+    component: UserHome,
     beforEnter: requireAuth
   },
   {

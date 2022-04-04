@@ -36,7 +36,7 @@ const saveUser = async () => {
   if (user.value) {
     setUser(user.value);
     setAuth(true);
-    router.push({ name: 'Home' });
+    router.push({ name: 'UserHome' });
   }
 };
 </script>
