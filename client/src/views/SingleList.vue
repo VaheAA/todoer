@@ -3,7 +3,7 @@
     <div class="container">
       <div class="list__inner" v-if="!isLoading">
         <h2 class="list__title">{{ currentList.name }}</h2>
-        <ul class="list__items">
+        <ul class="list__items" v-if="todos.rows.length">
           <TodoItem
             v-for="todo in todos.rows"
             :text="todo.text"
@@ -12,18 +12,32 @@
             @click="markAsComplete(todo.id)"
           />
         </ul>
+        <h3 v-else>Add you first todo</h3>
         <div class="list__tools">
           <button class="btn" @click="isOpen = !isOpen">Add new Todo</button>
-
           <div class="list__pagination">
+            <button
+              v-if="pages.length >= 2"
+              class="btn pagination__btn pagination__btn--large"
+              @click="setPage(1)"
+            >
+              First
+            </button>
             <button
               @click="setPage(page)"
               class="btn pagination__btn"
               :class="{ 'pagination__btn--active': page === currentPage }"
-              v-for="page in pages"
+              v-for="page in pagesToRender"
               :key="page"
             >
               {{ page }}
+            </button>
+            <button
+              v-if="pages.length >= 2"
+              class="btn pagination__btn pagination__btn--large"
+              @click="setPage(pages.at(-1))"
+            >
+              Last
             </button>
           </div>
         </div>
@@ -43,7 +57,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { getSingleList } from '../composables/getLists';
 import { createTodo } from '../composables/useTodo';
@@ -65,8 +79,14 @@ const limit = ref(5);
 const pagesCount = ref();
 const pages = ref([]);
 
+const pagesToRender = computed(() => {
+  return pages.value.length > 5 && currentPage.value > 3
+    ? pages.value.slice(-5)
+    : pages.value.slice(0, 5);
+});
+
 const markAsComplete = (id) => {
-  currentTodo.value = todos.value.find((todo) => todo.id === id);
+  currentTodo.value = todos.value.rows.find((todo) => todo.id === id);
   currentTodo.value.done = !currentTodo.value.done;
 };
 
@@ -86,7 +106,6 @@ const handleSubmit = async () => {
   isOpen.value = false;
   todoName.value = '';
   todos.value = await getTodos(route.params.id, limit.value, currentPage.value);
-  console.log(todos.value.count);
 };
 
 const countPages = () => {
@@ -154,13 +173,16 @@ onMounted(async () => {
   display: flex;
   justify-content: space-between;
   gap: 0.5rem;
-  max-width: 200px;
+  max-width: 300px;
 }
 .pagination__btn {
   width: 30px;
 }
 .pagination__btn--active {
   background-color: $veryDarkCyan;
+}
+.pagination__btn--large {
+  width: 60px;
 }
 
 .v-enter-active,

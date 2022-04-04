@@ -7,14 +7,17 @@
     <h3 class="todo__title">
       {{ text }}
     </h3>
-    <font-awesome-icon
-      class="todo__marker"
-      :class="{
-        'todo__marker--done': complete,
-        'todo__marker--current': !complete
-      }"
-      :icon="['fas', 'circle-check']"
-    />
+    <div class="todo__actions">
+      <font-awesome-icon
+        class="todo__marker"
+        :class="{
+          'todo__marker--done': complete,
+          'todo__marker--current': !complete
+        }"
+        :icon="['fas', 'circle-check']"
+      />
+      <font-awesome-icon class="todo__marker" :icon="['fas', 'circle-xmark']" />
+    </div>
   </div>
 </template>
 
@@ -48,6 +51,11 @@ const props = defineProps({
   &__title {
     font-size: 1.4rem;
     color: $veryDarkCyan;
+  }
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
   }
   &__marker {
     cursor: pointer;
