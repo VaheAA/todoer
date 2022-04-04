@@ -7,7 +7,7 @@
   >
     <div class="list__item">
       <div class="list__info">
-        <span class="list__title">{{ title }}</span>
+        <h4 class="list__title">{{ title }}</h4>
       </div>
     </div>
   </router-link>
@@ -24,8 +24,11 @@ const props = defineProps({
 .list__item {
   padding: 0.75rem;
   border: 1px solid $primaryDarkCyan;
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   margin: 10px;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
@@ -41,6 +44,7 @@ const props = defineProps({
 .list__info {
   display: flex;
   align-items: center;
+
   gap: 1rem;
   color: $veryDarkCyan;
 }

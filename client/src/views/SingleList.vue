@@ -80,7 +80,7 @@ const pagesCount = ref();
 const pages = ref([]);
 
 const pagesToRender = computed(() => {
-  return pages.value.length > 5 && currentPage.value > 3
+  return pages.value.length > 5 && currentPage.value > 4
     ? pages.value.slice(-5)
     : pages.value.slice(0, 5);
 });

@@ -15,7 +15,7 @@
               </p>
               <router-link
                 class="nav__link"
-                :to="{ name: store.isAuth ? 'Register' : 'CreateList' }"
+                :to="{ name: store.isAuth ? 'CreateList' : 'Register' }"
                 >{{
                   store.isAuth ? 'Create List' : 'Create Account'
                 }}</router-link
