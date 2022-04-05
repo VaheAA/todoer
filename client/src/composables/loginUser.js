@@ -1,13 +1,17 @@
 import { $host, $authHost } from '../api';
+import { ref } from 'vue';
 import jwtDecode from 'jwt-decode';
 
 const loginUser = async (user) => {
+  const error = ref(null);
+
   try {
+    error.value = null;
     const { data } = await $host.post('api/user/login', user);
     localStorage.setItem('token', data.token);
     return jwtDecode(data.token);
   } catch (err) {
-    alert(err.message);
+    error.value = err.message;
   }
 };
 
@@ -17,7 +21,7 @@ const checkUser = async (user) => {
     localStorage.setItem('token', data.token);
     return jwtDecode(data.token);
   } catch (err) {
-    alert(err);
+    error.value = err.message;
   }
 };
 
