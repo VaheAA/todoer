@@ -14,6 +14,7 @@ import { useLoggedInUserStore } from './store/userStore.js';
 import { checkUser } from './composables/loginUser.js';
 
 const isLoading = ref(false);
+const error = ref(null);
 const store = useLoggedInUserStore();
 
 const router = useRouter();
@@ -35,6 +36,7 @@ onMounted(() => {
           router.push({ name: 'Home' });
         }
       })
+      .catch((err) => (error.value = err.message))
       .finally(() => (isLoading.value = false));
   } else {
     router.push({ name: 'Home' });

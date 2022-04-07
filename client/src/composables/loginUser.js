@@ -16,6 +16,8 @@ const loginUser = async (user) => {
 };
 
 const checkUser = async (user) => {
+  const error = ref(null);
+
   try {
     const { data } = await $authHost.get('api/user/auth', user);
     localStorage.setItem('token', data.token);
