@@ -28,6 +28,13 @@ class List {
     const list = await TodoList.findOne({ where: { id } });
     return res.json(list);
   }
+
+  async deleteList(req, res) {
+    const { id } = req.params;
+
+    const list = await TodoList.destroy({ where: { id } });
+    return res.json(list);
+  }
 }
 
 module.exports = new List();
