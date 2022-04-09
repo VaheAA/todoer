@@ -139,6 +139,9 @@ onMounted(async () => {
   margin: 0 auto;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .list__title {

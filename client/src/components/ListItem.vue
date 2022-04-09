@@ -1,16 +1,17 @@
 <template>
-  <router-link
-    :to="{
-      name: 'SingleList',
-      params: { id: id }
-    }"
-  >
-    <div class="list__item">
+  <div class="list__item">
+    <router-link
+      :to="{
+        name: 'SingleList',
+        params: { id: id }
+      }"
+    >
       <div class="list__info">
         <h4 class="list__title">{{ title }}</h4>
       </div>
-    </div>
-  </router-link>
+    </router-link>
+    <button class="btn">Delete list</button>
+  </div>
 </template>
 
 <script setup>
@@ -44,7 +45,7 @@ const props = defineProps({
 .list__info {
   display: flex;
   align-items: center;
-
+  flex-direction: column;
   gap: 1rem;
   color: $veryDarkCyan;
 }
