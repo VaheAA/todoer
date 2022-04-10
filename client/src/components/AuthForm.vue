@@ -47,6 +47,7 @@ const handleClick = () => {
 <style lang="scss">
 .form {
   max-width: 600px;
+  min-height: 400px;
   margin: 0 auto;
   padding: 2rem;
   box-shadow: 0px 0px 15px 5px rgba(0, 0, 0, 0.1);

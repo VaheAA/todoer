@@ -3,14 +3,18 @@
     <div class="home">
       <div class="container">
         <h1 class="main-title">My Lists</h1>
-        <ul class="lists">
+        <ul class="lists" v-if="lists">
           <ListItem
             v-for="list in lists"
             :key="list"
             :id="list.id"
             :title="list.name"
+            @deleteList="handleDelete(list.id)"
           />
         </ul>
+        <h2 class="message" v-else>
+          You have not todo lists, please add a new one.
+        </h2>
       </div>
     </div>
   </main>
@@ -21,10 +25,16 @@ import { onMounted, ref } from 'vue';
 import ListItem from '../components/ListItem.vue';
 import { getLists } from '../composables/getLists';
 import { useLoggedInUserStore } from '../store/userStore';
-
+import { deleteList } from '../composables/useList';
 const lists = ref(null);
 const isLoading = ref(false);
-const listIds = ref(null);
+
+const store = useLoggedInUserStore();
+
+const handleDelete = async (id) => {
+  await deleteList(id);
+  lists.value = await getLists(store.user.id);
+};
 
 onMounted(async () => {
   isLoading.value = true;

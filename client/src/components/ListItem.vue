@@ -10,7 +10,7 @@
         <h4 class="list__title">{{ title }}</h4>
       </div>
     </router-link>
-    <button class="btn">Delete list</button>
+    <button class="btn" @click="deleteList">Delete list</button>
   </div>
 </template>
 
@@ -19,17 +19,25 @@ const props = defineProps({
   title: String,
   id: Number
 });
+
+const emit = defineEmits(['deleteList']);
+
+const deleteList = (id) => {
+  emit('deleteList', id);
+};
 </script>
 
 <style lang="scss">
 .list__item {
   padding: 0.75rem;
   border: 1px solid $primaryDarkCyan;
-  width: 200px;
+  width: 300px;
   height: 200px;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  align-items: center;
+  gap: 1rem;
   margin: 10px;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
   border-radius: 5px;

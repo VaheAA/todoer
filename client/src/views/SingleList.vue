@@ -1,61 +1,65 @@
 <template>
   <main class="main">
     <div class="container">
-      <div class="list__inner" v-if="!isLoading">
-        <h2 class="list__title">{{ currentList.name }}</h2>
-        <ul class="list__items" v-if="todos.rows.length">
-          <TodoItem
-            v-for="todo in todos.rows"
-            :text="todo.text"
-            :complete="todo.done"
-            :key="todo.id"
-            @click="markAsComplete(todo.id)"
-            @deleteTodo="handleDelete(todo.id)"
-          />
-        </ul>
-        <h3 v-else>Add you first todo</h3>
-        <div class="list__tools">
-          <button class="btn" @click="isOpen = !isOpen">Add new Todo</button>
-          <div class="list__pagination">
-            <button
-              v-if="pages.length >= 2"
-              class="btn pagination__btn pagination__btn--large"
-              @click="setPage(1)"
+      <div class="list__wrapper">
+        <div class="list__inner" v-if="!isLoading">
+          <h2 class="list__title">{{ currentList.name }}</h2>
+          <ul class="list__items" v-if="todos.rows.length">
+            <TodoItem
+              v-for="todo in todos.rows"
+              :text="todo.text"
+              :complete="todo.done"
+              :key="todo.id"
+              @click="markAsComplete(todo.id)"
+              @deleteTodo="handleDelete(todo.id)"
+            />
+          </ul>
+          <h3 class="message" v-else>List is empty, add your fist todo!</h3>
+          <div class="list__tools">
+            <button class="btn" @click="isOpen = !isOpen">Add new Todo</button>
+            <div class="list__pagination">
+              <button
+                v-if="pages.length >= 2"
+                class="btn pagination__btn pagination__btn--large"
+                @click="setPage(1)"
+              >
+                First
+              </button>
+              <button
+                @click="setPage(page)"
+                class="btn pagination__btn"
+                :class="{ 'pagination__btn--active': page === currentPage }"
+                v-for="page in pagesToRender"
+                :key="page"
+              >
+                {{ page }}
+              </button>
+              <button
+                v-if="pages.length >= 2"
+                class="btn pagination__btn pagination__btn--large"
+                @click="setPage(pages.at(-1))"
+              >
+                Last
+              </button>
+            </div>
+          </div>
+          <div class="list__summary">
+            <span class="list__summary-item"
+              >Total todos: {{ todos.count }}</span
             >
-              First
-            </button>
-            <button
-              @click="setPage(page)"
-              class="btn pagination__btn"
-              :class="{ 'pagination__btn--active': page === currentPage }"
-              v-for="page in pagesToRender"
-              :key="page"
-            >
-              {{ page }}
-            </button>
-            <button
-              v-if="pages.length >= 2"
-              class="btn pagination__btn pagination__btn--large"
-              @click="setPage(pages.at(-1))"
-            >
-              Last
-            </button>
           </div>
         </div>
-        <div class="list__summary">
-          <span class="list__summary-item">Total todos: {{ todos.count }}</span>
-        </div>
+        <transition>
+          <AddTodo
+            v-if="isOpen"
+            title="Add new todo"
+            btnText="Save"
+            v-model:todoName="todoName"
+            v-model:done="done"
+            @handleSubmit="handleSubmit"
+          />
+        </transition>
       </div>
-      <transition>
-        <AddTodo
-          v-if="isOpen"
-          title="Add new todo"
-          btnText="Save"
-          v-model:todoName="todoName"
-          v-model:done="done"
-          @handleSubmit="handleSubmit"
-        />
-      </transition>
     </div>
   </main>
 </template>
@@ -133,9 +137,16 @@ onMounted(async () => {
 </script>
 
 <style lang="scss">
+.list__wrapper {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+}
+
 .list__inner {
-  max-width: 800px;
+  max-width: 600px;
   min-height: 450px;
+  width: 100%;
   margin: 0 auto;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
   padding: 1rem;
@@ -155,11 +166,10 @@ onMounted(async () => {
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-  min-height: 450px;
 }
 
 .list__tools {
-  margin-top: 2rem;
+  margin-top: 4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -186,10 +196,6 @@ onMounted(async () => {
   justify-content: space-between;
   gap: 0.5rem;
   max-width: 300px;
-}
-
-.list__summary {
-  margin-top: 1rem;
 }
 
 .list__summary-item {

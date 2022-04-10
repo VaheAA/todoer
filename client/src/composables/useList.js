@@ -8,3 +8,12 @@ export const createList = async (list) => {
     alert(err);
   }
 };
+
+export const deleteList = async (id) => {
+  try {
+    const { data } = await $authHost.delete(`api/list/${id}`);
+    return data;
+  } catch (err) {
+    alert(err);
+  }
+};
