@@ -45,7 +45,6 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
 import { useLoggedInUserStore } from '../store/userStore';
 
 const store = useLoggedInUserStore();

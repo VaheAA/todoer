@@ -3,7 +3,7 @@
     <div class="home">
       <div class="container">
         <h1 class="main-title">My Lists</h1>
-        <ul class="lists" v-if="lists">
+        <ul class="lists" v-if="lists && lists.length > 0">
           <ListItem
             v-for="list in lists"
             :key="list"
@@ -14,6 +14,9 @@
         </ul>
         <h2 class="message" v-else>
           You have not todo lists, please add a new one.
+          <!-- <router-link class="nav__link" :to="{ name: 'CreateLIst' }"
+            >Create List</router-link
+          > -->
         </h2>
       </div>
     </div>
